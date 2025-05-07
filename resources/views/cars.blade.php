@@ -127,7 +127,7 @@
                         </div>
                         <div class="flex justify-between">
                             <span>Dengan Driver:</span>
-                            <span class="font-semibold text-primary">Rp {{ number_format($car->with_driver_price, 0, ',', '.') }}/hari</span>
+                            <span class="font-semibold text-primary">Rp {{ number_format($car->with_driver_price, 0, ',', '.') }}/12 Jam</span>
                         </div>
                     </div>
                     

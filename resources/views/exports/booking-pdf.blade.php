@@ -19,6 +19,7 @@
 </head>
 <body>
     <div class="header">
+        <img src="{{ public_path('logo.png') }}" class="logo" alt="Logo" style="display:block; margin:0 auto 10px auto; height:90px;">
         <div class="title">FAKTUR PENYEWAAN MOBIL</div>
         <div>Fara Trans - Rental Mobil & Paket Wisata</div>
     </div>
@@ -27,17 +28,10 @@
         <div class="section-title">Informasi Penyewa</div>
         <table>
             <tr>
-                <td width="30%">Nama Penyewa</td>
+                <td width="30%">Nama Penyewa / Instansi : </td>
                 <td>{{ $booking->customer_name }}</td>
             </tr>
-            <tr>
-                <td>Nomor Telepon/WA</td>
-                <td>{{ $booking->customer_phone }}</td>
-            </tr>
-            <tr>
-                <td>Alamat</td>
-                <td>{{ $booking->customer_address ?? '-' }}</td>
-            </tr>
+            
         </table>
     </div>
 
@@ -51,7 +45,7 @@
             </tr>
             <tr>
                 <td>{{ $booking->car->brand }} {{ $booking->car->type }}</td>
-                <td>{{ $booking->rent_type == 'self_drive' ? 'Lepas Kunci' : 'Dengan Driver' }}</td>
+                <td>{{ $booking->rent_type == 'self_drive' ? 'Lepas Kunci' : 'All In' }}</td>
                 <td class="text-right">Rp {{ number_format($booking->total_price, 0, ',', '.') }}</td>
             </tr>
         </table>

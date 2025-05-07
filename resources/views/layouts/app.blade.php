@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,14 +11,15 @@
     <meta property="og:image" content="@yield('og_image', asset('logo.png'))">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta name="twitter:card" content="summary_large_image">
-    
+
     <!-- Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
+
     <!-- Tailwind CSS -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.tailwindcss.com"></script>
@@ -51,12 +53,20 @@
                     },
                     keyframes: {
                         fadeIn: {
-                            '0%': { opacity: '0' },
-                            '100%': { opacity: '1' }
+                            '0%': {
+                                opacity: '0'
+                            },
+                            '100%': {
+                                opacity: '1'
+                            }
                         },
                         float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-10px)' }
+                            '0%, 100%': {
+                                transform: 'translateY(0)'
+                            },
+                            '50%': {
+                                transform: 'translateY(-10px)'
+                            }
                         }
                     }
                 }
@@ -64,6 +74,7 @@
         }
     </script>
 </head>
+
 <body class="font-sans antialiased text-gray-800 bg-light">
     <!-- Navbar -->
     <nav class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-100">
@@ -78,23 +89,31 @@
                 <div class="md:hidden flex items-center">
                     <button id="mobile-menu-button" class="text-gray-600 hover:text-primary focus:outline-none">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
                     </button>
                 </div>
 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex space-x-1">
-                    <a href="/" class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-primary transition rounded-lg">Home</a>
-                    <a href="/armada" class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-primary transition rounded-lg">Armada</a>
-                    <a href="/paket-wisata" class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-primary transition rounded-lg">Paket Wisata</a>
-                    <a href="/kontak" class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-primary transition rounded-lg">Kontak</a>
-                    <a href="/galeri" class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-primary transition rounded-lg">Galeri</a>
+                    <a href="/"
+                        class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-primary transition rounded-lg">Home</a>
+                    <a href="/armada"
+                        class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-primary transition rounded-lg">Armada</a>
+                    <a href="/paket-wisata"
+                        class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-primary transition rounded-lg">Paket
+                        Wisata</a>
+                    <a href="/kontak"
+                        class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-primary transition rounded-lg">Kontak</a>
+                    <a href="/galeri"
+                        class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-primary transition rounded-lg">Galeri</a>
                 </div>
 
                 <!-- CTA Button -->
                 <div class="hidden md:block ml-4">
-                    <a href="https://wa.me/6281234567890" class="bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-lg text-sm font-medium transition shadow-md hover:shadow-lg">
+                    <a href="https://wa.me/{{ $contact->phone }}"
+                        class="bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-lg text-sm font-medium transition shadow-md hover:shadow-lg">
                         <i class="fab fa-whatsapp mr-2"></i>Hubungi Kami
                     </a>
                 </div>
@@ -103,12 +122,18 @@
             <!-- Mobile Menu -->
             <div id="mobile-menu" class="md:hidden hidden pb-3">
                 <div class="px-2 pt-2 space-y-1">
-                    <a href="/" class="block px-3 py-2 rounded-lg text-base font-medium hover:bg-gray-100">Home</a>
-                    <a href="/armada" class="block px-3 py-2 rounded-lg text-base font-medium hover:bg-gray-100">Armada</a>
-                    <a href="/paket-wisata" class="block px-3 py-2 rounded-lg text-base font-medium hover:bg-gray-100">Paket Wisata</a>
-                    <a href="/galeri" class="block px-3 py-2 rounded-lg text-base font-medium hover:bg-gray-100">Galeri</a>
-                    <a href="/kontak" class="block px-3 py-2 rounded-lg text-base font-medium hover:bg-gray-100">Kontak</a>
-                    <a href="https://wa.me/{{ $contact->phone }}" class="block px-3 py-2 rounded-lg text-base font-medium bg-primary text-white text-center">
+                    <a href="/"
+                        class="block px-3 py-2 rounded-lg text-base font-medium hover:bg-gray-100">Home</a>
+                    <a href="/armada"
+                        class="block px-3 py-2 rounded-lg text-base font-medium hover:bg-gray-100">Armada</a>
+                    <a href="/paket-wisata"
+                        class="block px-3 py-2 rounded-lg text-base font-medium hover:bg-gray-100">Paket Wisata</a>
+                    <a href="/galeri"
+                        class="block px-3 py-2 rounded-lg text-base font-medium hover:bg-gray-100">Galeri</a>
+                    <a href="/kontak"
+                        class="block px-3 py-2 rounded-lg text-base font-medium hover:bg-gray-100">Kontak</a>
+                    <a href="https://wa.me/{{ $contact->phone }}"
+                        class="block px-3 py-2 rounded-lg text-base font-medium bg-primary text-white text-center">
                         <i class="fab fa-whatsapp mr-2"></i>Hubungi Kami
                     </a>
                 </div>
@@ -128,7 +153,8 @@
                 <!-- About -->
                 <div>
                     <h3 class="text-xl font-bold mb-4">FaraTrans</h3>
-                    <p class="text-gray-400">Solusi transportasi dan wisata terbaik untuk perjalanan Anda dengan pelayanan profesional dan harga kompetitif.</p>
+                    <p class="text-gray-400">Solusi transportasi dan wisata terbaik untuk perjalanan Anda dengan
+                        pelayanan profesional dan harga kompetitif.</p>
                 </div>
 
                 <!-- Quick Links -->
@@ -137,7 +163,8 @@
                     <ul class="space-y-2">
                         <li><a href="/" class="text-gray-400 hover:text-white transition">Home</a></li>
                         <li><a href="/armada" class="text-gray-400 hover:text-white transition">Armada</a></li>
-                        <li><a href="/paket-wisata" class="text-gray-400 hover:text-white transition">Paket Wisata</a></li>
+                        <li><a href="/paket-wisata" class="text-gray-400 hover:text-white transition">Paket Wisata</a>
+                        </li>
                         <li><a href="/galeri" class="text-gray-400 hover:text-white transition">Galeri</a></li>
                         <li><a href="/kontak" class="text-gray-400 hover:text-white transition">Kontak</a></li>
                     </ul>
@@ -166,16 +193,20 @@
                 <div>
                     <h3 class="text-xl font-bold mb-4">Media Sosial</h3>
                     <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-primary transition">
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-primary transition">
                             <i class="fab fa-facebook-f"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-primary transition">
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-primary transition">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-primary transition">
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-primary transition">
                             <i class="fab fa-twitter"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-primary transition">
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-primary transition">
                             <i class="fab fa-whatsapp"></i>
                         </a>
                     </div>
@@ -206,4 +237,5 @@
         });
     </script>
 </body>
+
 </html>

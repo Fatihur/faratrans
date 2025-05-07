@@ -56,8 +56,10 @@ Route::get('/kontak', function () {
 });
 
 Route::get('/galeri', function () {
+    $contact = Contact::first();
+
     $galleries = App\Models\Gallery::where('is_active', true)
                 ->orderBy('order')
                 ->get();
-    return view('gallery', compact('galleries'));
+    return view('gallery', compact('galleries', 'contact'));
 });

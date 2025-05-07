@@ -68,7 +68,7 @@ class BookingResource extends Resource
                             ->label('Tipe Sewa')
                             ->options([
                                 'self_drive' => 'Lepas Kunci',
-                                'with_driver' => 'Dengan Driver',
+                                'with_driver' => 'All In',
                             ])
                             ->required()
                             ->live()
@@ -127,7 +127,7 @@ class BookingResource extends Resource
                     ->label('Tipe Sewa')
                     ->formatStateUsing(fn(string $state): string => match ($state) {
                         'self_drive' => 'Lepas Kunci',
-                        'with_driver' => 'Dengan Driver',
+                        'with_driver' => 'All In',
                     })
                     ->badge()
                     ->color(fn(string $state): string => match ($state) {
@@ -163,7 +163,7 @@ class BookingResource extends Resource
                     ->label('Tipe Sewa')
                     ->options([
                         'self_drive' => 'Lepas Kunci',
-                        'with_driver' => 'Dengan Driver',
+                        'with_driver' => 'All In',
                     ]),
 
                 Tables\Filters\Filter::make('returned')
@@ -199,16 +199,19 @@ class BookingResource extends Resource
 
                         return redirect()->away($waLink);
                     }),
-                    Tables\Actions\Action::make('pdf')
+                Tables\Actions\Action::make('pdf')
                     ->label('PDF')
                     ->icon('heroicon-o-document-arrow-down')
                     ->color('gray')
                     ->action(function (Booking $record) {
                         $pdf = Pdf::loadView('exports.booking-pdf', ['booking' => $record]);
-                        
+                        $customer = preg_replace('/[^A-Za-z0-9]/', '_', $record->customer_name);
+                        $mobil = preg_replace('/[^A-Za-z0-9]/', '_', $record->car->brand . '_' . $record->car->type);
+                        $tanggal = $record->start_date->format('Ymd');
+                        $filename = $customer . '_' . $mobil . '_' . $tanggal . '.pdf';
                         return response()->streamDownload(
                             fn () => print($pdf->output()),
-                            'booking-' . $record->id . '.pdf'
+                            $filename
                         );
                     }),
             ])

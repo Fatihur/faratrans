@@ -10,6 +10,7 @@ class Car extends Model
     {
         return $this->belongsTo(Car::class);
     }
+
     public function getFullNameAttribute()
     {
         return "{$this->brand} {$this->type} ({$this->license_plate})";
