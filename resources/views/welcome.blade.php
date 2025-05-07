@@ -65,7 +65,7 @@
             <div class="md:w-1/2 md:pl-12" data-aos="fade-left" data-aos-delay="200">
                 <h3 class="text-2xl font-semibold mb-4">Fara Trans - Agen Tour and Travel</h3>
                 <p class="text-gray-700 mb-4">Kami adalah perusahaan rental mobil dan agen tour and travel yang berkomitmen untuk memberikan pelayanan terbaik kepada pelanggan.</p>
-                <p class="text-gray-700 mb-6">Dengan pengalaman bertahun-tahun di industri ini, kami memahami kebutuhan Anda dan siap memberikan solusi terbaik untuk perjalanan Anda.</p>
+                <p class="text-gray-700 mb-6">Kami berdiri sejak tahun 2009, kami memahami kebutuhan Anda dan siap memberikan solusi terbaik untuk perjalanan Anda.</p>
                 <ul class="space-y-3">
                     <li class="flex items-start" data-aos="fade-up" data-aos-delay="300">
                         <i class="fas fa-check text-primary mr-3 mt-1"></i>

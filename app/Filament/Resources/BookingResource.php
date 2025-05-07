@@ -13,7 +13,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class BookingResource extends Resource
 {
@@ -57,11 +57,8 @@ class BookingResource extends Resource
                             ->searchable()
                             ->required()
                             ->live()
-                            ->afterStateUpdated(function ($state, Forms\Set $set) {
-                                $car = Car::find($state);
-                                if ($car) {
-                                    $set('total_price', $car->self_drive_price);
-                                }
+                            ->afterStateUpdated(function ($state, Forms\Set $set, Forms\Get $get) {
+                                self::updateTotalPrice($set, $get);
                             }),
 
                         Forms\Components\Select::make('rent_type')
@@ -73,32 +70,38 @@ class BookingResource extends Resource
                             ->required()
                             ->live()
                             ->afterStateUpdated(function ($state, Forms\Set $set, Forms\Get $get) {
-                                $car = Car::find($get('car_id'));
-                                if ($car) {
-                                    $set('total_price', $state === 'with_driver'
-                                        ? $car->with_driver_price
-                                        : $car->self_drive_price);
-                                }
+                                self::updateTotalPrice($set, $get);
                             }),
 
                         Forms\Components\TextInput::make('total_price')
                             ->label('Total Harga')
                             ->numeric()
                             ->prefix('Rp')
-                            ->required(),
+                            ->required()
+                            ->readOnly()
+                            ->dehydrated(),
 
                         Forms\Components\DateTimePicker::make('start_date')
                             ->label('Tanggal/Jam Sewa')
                             ->required()
                             ->native(false)
-                            ->minutesStep(30),
+                            ->minutesStep(30)
+                            ->live()
+                            ->afterStateUpdated(function (Forms\Set $set, Forms\Get $get) {
+                                $set('end_date', null);
+                                self::updateTotalPrice($set, $get);
+                            }),
 
                         Forms\Components\DateTimePicker::make('end_date')
                             ->label('Tanggal/Jam Kembali')
                             ->required()
                             ->native(false)
                             ->minutesStep(30)
-                            ->minDate(fn(Forms\Get $get) => $get('start_date')),
+                            ->minDate(fn(Forms\Get $get) => $get('start_date'))
+                            ->live()
+                            ->afterStateUpdated(function (Forms\Set $set, Forms\Get $get) {
+                                self::updateTotalPrice($set, $get);
+                            }),
 
                         Forms\Components\Toggle::make('returned')
                             ->label('Sudah Dikembalikan')
@@ -111,6 +114,41 @@ class BookingResource extends Resource
             ]);
     }
 
+    protected static function updateTotalPrice(Forms\Set $set, Forms\Get $get): void
+    {
+        $carId = $get('car_id');
+        $rentType = $get('rent_type');
+        $startDate = $get('start_date');
+        $endDate = $get('end_date');
+    
+        if (!$carId || !$rentType || !$startDate || !$endDate) {
+            $set('total_price', 0);
+            return;
+        }
+    
+        $car = Car::find($carId);
+        if (!$car) {
+            $set('total_price', 0);
+            return;
+        }
+    
+        $start = Carbon::parse($startDate);
+        $end = Carbon::parse($endDate);
+        
+        // Hitung perbedaan hari (minimum 1 hari)
+        $days = $start->diffInDays($end);
+        $days = max($days, 1); // Minimum 1 hari
+    
+        // Get daily rate based on rental type
+        $dailyRate = ($rentType === 'with_driver') 
+            ? $car->with_driver_price 
+            : $car->self_drive_price;
+    
+        // Calculate total price
+        $totalPrice = $days * $dailyRate;
+    
+        $set('total_price', $totalPrice);
+    }
     public static function table(Table $table): Table
     {
         return $table

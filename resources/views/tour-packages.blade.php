@@ -32,39 +32,15 @@
                     <div class="p-6">
                         <div class="flex justify-between items-center mb-4">
                             <span class="text-primary font-bold text-lg">Rp {{ number_format($package->price, 0, ',', '.') }}/orang</span>
-                            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Min. 4 Orang</span>
                         </div>
                         
-                        <p class="text-gray-700 mb-4">{{ Str::limit($package->description, 150) }}</p>
+                        <p class="text-gray-700 mb-4">{{ $package->description }}</p>
                         
-                        <div class="mb-4">
-                            <h4 class="font-semibold mb-2">Fasilitas:</h4>
-                            <ul class="text-sm text-gray-700 space-y-1">
-                                <li class="flex items-start">
-                                    <i class="fas fa-check text-primary mr-2 mt-1 text-xs"></i>
-                                    <span>Transportasi mobil AC</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <i class="fas fa-check text-primary mr-2 mt-1 text-xs"></i>
-                                    <span>Penginapan 2 malam</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <i class="fas fa-check text-primary mr-2 mt-1 text-xs"></i>
-                                    <span>Makan 6x selama trip</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <i class="fas fa-check text-primary mr-2 mt-1 text-xs"></i>
-                                    <span>Tour guide berpengalaman</span>
-                                </li>
-                            </ul>
-                        </div>
+                        
                         
                         <div class="flex space-x-2">
-                            <a href="/paket-wisata/{{ $package->id }}" 
-                               class="flex-1 text-center border border-primary text-primary hover:bg-primary hover:text-white font-bold py-2 px-4 rounded transition">
-                                Detail
-                            </a>
-                            <a href="https://wa.me/6281234567890?text=Saya%20tertarik%20dengan%20paket%20{{ $package->title }}" 
+                           
+                            <a href="https://wa.me/{{$contact ->phone}}?text=Saya%20tertarik%20dengan%20paket%20{{ $package->title }}" 
                                class="flex-1 text-center bg-primary hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition">
                                 Pesan
                             </a>
